@@ -135,7 +135,7 @@ EOF
     return 0
 }
 
-options=$(getopt -o hp:n:cR:S:T: -l help,path:,name:,clean,release:,auth-key:,tarball: -- "$@")
+options=$(getopt -o hp:n:cR:S:T: -l help,path:,name:,clean,release:,auth-key:,tarball:,rootfs: -- "$@")
 if [ $? -ne 0 ]; then
     usage $(basename $0)
     exit 1
