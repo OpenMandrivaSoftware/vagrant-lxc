@@ -1,8 +1,49 @@
-## [0.6.4](https://github.com/fgrehm/vagrant-lxc/compare/v0.6.3...master) (unreleased)
+## [0.8.0](https://github.com/fgrehm/vagrant-lxc/compare/v0.7.0...v0.8.0) (Feb 26, 2014)
+
+FEATURES:
+
+  - Support for naming containers from Vagrantfiles [#132](https://github.com/fgrehm/vagrant-lxc/issues/132)
+
+IMPROVEMENTS:
+
+  - Use a safer random name for containers [#152](https://github.com/fgrehm/vagrant-lxc/issues/152)
+  - Improve Ubuntu 13.10 compatibility [#190](https://github.com/fgrehm/vagrant-lxc/pull/190) / [#197](https://github.com/fgrehm/vagrant-lxc/pull/197)
+  - Improved mac address detection from lxc configs [#226](https://github.com/fgrehm/vagrant-lxc/pull/226)
+
+BUG FIXES:
+
+  - Properly detect if lxc is installed on hosts that do not have `lxc-version` on their paths [#186](https://github.com/fgrehm/vagrant-lxc/issues/186)
+
+
+## [0.7.0](https://github.com/fgrehm/vagrant-lxc/compare/v0.6.4...v0.7.0) (Nov 8, 2013)
+
+IMPROVEMENTS:
+
+  - Support for `vagrant up` in parallel [#152](https://github.com/fgrehm/vagrant-lxc/issues/152)
+  - Warn users about unsupported private / public networking configs [#154](https://github.com/fgrehm/vagrant-lxc/issues/154)
+  - Respect Vagrantfile options to disable forwarded port [#149](https://github.com/fgrehm/vagrant-lxc/issues/149)
+
+BUG FIXES:
+
+  - Nicely handle blank strings provided to `:host_ip` when specifying forwarded ports [#170](https://github.com/fgrehm/vagrant-lxc/issues/170)
+  - Fix "Permission denied" when starting/destroying containers after lxc
+    security update in Ubuntu [#180](https://github.com/fgrehm/vagrant-lxc/issues/180)
+  - Fix `vagrant package` [#172](https://github.com/fgrehm/vagrant-lxc/issues/172)
+
+
+## [0.6.4](https://github.com/fgrehm/vagrant-lxc/compare/v0.6.3...v0.6.4) (Oct 27, 2013)
+
+FEATURES:
+
+  - New script for building OpenMandriva base boxes [#167](https://github.com/fgrehm/vagrant-lxc/issues/167)
 
 IMPROVEMENTS:
 
   - Make `lxc-template` compatible with Ubuntu 13.10 [#150](https://github.com/fgrehm/vagrant-lxc/issues/150)
+
+BUG FIXES:
+
+  - Fix force halt for hosts that do not have `lxc-shutdown` around (like Ubuntu 13.10) [#150](https://github.com/fgrehm/vagrant-lxc/issues/150)
 
 ## [0.6.3](https://github.com/fgrehm/vagrant-lxc/compare/v0.6.2...v0.6.3) (Oct 12, 2013)
 

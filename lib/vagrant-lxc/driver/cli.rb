@@ -10,6 +10,7 @@ module Vagrant
         attr_accessor :name
 
         class TransitionBlockNotProvided < RuntimeError; end
+        class ShutdownNotSupported < RuntimeError; end
         class TargetStateNotReached < RuntimeError
           def initialize(target_state, state)
             msg = "Target state '#{target_state}' not reached, currently on '#{state}'"
@@ -37,7 +38,7 @@ module Vagrant
         end
 
         def state
-          if @name && run(:info, '--name', @name, retryable: true) =~ /^state:[^A-Z]+([A-Z]+)$/
+          if @name && run(:info, '--name', @name, retryable: true) =~ /^state:[^A-Z]+([A-Z]+)$/i
             $1.downcase.to_sym
           elsif @name
             :unknown
@@ -57,6 +58,12 @@ module Vagrant
               '--name',     @name,
               *(config_opts),
               *extra
+        rescue Errors::ExecuteError => e
+          if e.stderr =~ /already exists/i
+            raise Errors::ContainerAlreadyExists, name: @name
+          else
+            raise
+          end
         end
 
         def destroy
@@ -68,11 +75,17 @@ module Vagrant
         end
 
         def stop
+          attach '/sbin/halt'
           run :stop, '--name', @name
         end
 
         def shutdown
-          run :shutdown, '--name', @name
+          if system('which lxc-shutdown > /dev/null')
+            run :shutdown, '--name', @name
+          else
+            # REFACTOR: Do not use exception to control the flow
+            raise ShutdownNotSupported
+          end
         end
 
         def attach(*cmd)

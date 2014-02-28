@@ -17,6 +17,10 @@ en:
         Waiting for container to start. This should not take long.
       container_ready: |-
         Container started and ready for use!
+      warn_networks: |-
+        Warning! The LXC provider doesn't support any of the Vagrant public / private
+        network configurations (ex: `config.vm.network :private_network, ip: "some-ip"`).
+        They will be silently ignored.
 
   vagrant:
     commands:
@@ -56,3 +60,8 @@ en:
 
       lxc_redir_not_installed: |-
         `redir` is not installed or is not accessible on the PATH.
+
+      lxc_container_already_exists: |-
+        There is container on your system with the same name you've specified
+        on your Vagrantfile (%{name}), please choose a different one or
+        run `lxc-destroy --name %{name}` and try again.

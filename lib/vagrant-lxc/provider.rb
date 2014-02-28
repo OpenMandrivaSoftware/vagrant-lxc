@@ -26,7 +26,9 @@ module Vagrant
       end
 
       def ensure_lxc_installed!
-        unless system("which lxc-version > /dev/null")
+        begin
+          sudo_wrapper.run("which", "lxc-create")
+        rescue Vagrant::LXC::Errors::ExecuteError
           raise Errors::LxcNotInstalled
         end
       end
