@@ -3,7 +3,8 @@ module Vagrant
     module Action
       class ShareFolders
         def initialize(app, env)
-          @app = app
+          @app    = app
+          @logger = Log4r::Logger.new("vagrant::lxc::action::share_folders")
         end
 
         def call(env)
