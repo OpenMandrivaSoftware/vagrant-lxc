@@ -106,8 +106,8 @@ chroot ${ROOTFS} urpmi.update -a
 # chroot ${ROOTFS} systemctl enable network
 # chroot ${ROOTFS} service network start
 chroot ${ROOTFS} systemctl enable network.service
-chroot ${ROOTFS} chkconfig network on
 chroot ${ROOTFS} chkconfig sshd on
+chroot ${ROOTFS} chkconfig network on
 # chroot ${ROOTFS} dhclient eth0
 
 
