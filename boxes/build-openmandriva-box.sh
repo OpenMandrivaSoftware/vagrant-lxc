@@ -104,7 +104,7 @@ PACKAGES=(vim curl wget man bash-completion openssh-server openssh-clients tar u
 chroot ${ROOTFS} urpmi ${PACKAGES[*]} --auto --no-suggests --no-verify-rpm
 chroot ${ROOTFS} urpmi.update -a
 chroot ${ROOTFS} chkconfig network on
-chroot ${ROOTFS} dhclient eth0
+# chroot ${ROOTFS} dhclient eth0
 
 
 ##################################################################################
