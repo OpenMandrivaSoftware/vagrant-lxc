@@ -99,8 +99,8 @@ sed -i 's/\# %wheel/\%wheel/' ${ROOTFS}/etc/sudoers
 ##################################################################################
 # 5 - Add some goodies and update packages
 
-# Extra packages: urpmi perl-URPM mock-urpm genhdlist2 tree git rpm ruby
-PACKAGES=(vim curl wget man bash-completion openssh-server openssh-clients tar urpmi perl-URPM mock-urpm genhdlist2 tree git rpm ruby)
+# Extra packages: urpmi perl-URPM mock-urpm genhdlist2 tree git rpm ruby timezone
+PACKAGES=(vim curl wget man bash-completion openssh-server openssh-clients tar urpmi perl-URPM mock-urpm genhdlist2 tree git rpm ruby timezone)
 chroot ${ROOTFS} urpmi ${PACKAGES[*]} --auto --no-suggests --no-verify-rpm
 chroot ${ROOTFS} urpmi.update -a
 
