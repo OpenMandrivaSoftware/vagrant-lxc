@@ -83,7 +83,7 @@ mkdir -p ${ROOTFS}/home/vagrant/.ssh
 echo $VAGRANT_KEY > ${ROOTFS}/home/vagrant/.ssh/authorized_keys
 chroot ${ROOTFS} chown -R vagrant: /home/vagrant/.ssh
 
-chroot ${ROOTFS} urpmi sudo --auto
+chroot ${ROOTFS} urpmi sudo --auto --downloader wget --wget-options --auth-no-challenge --auto --no-suggests --no-verify-rpm --ignorearch --fastunsafe
 chroot ${ROOTFS} usermod -a -G wheel vagrant
 
 # Enable passwordless sudo for users under the "sudo" group
@@ -101,7 +101,7 @@ sed -i 's/\# %wheel/\%wheel/' ${ROOTFS}/etc/sudoers
 
 # Extra packages: urpmi perl-URPM mock-urpm genhdlist2 tree git rpm ruby
 PACKAGES=(vim curl wget man bash-completion openssh-server openssh-clients tar urpmi perl-URPM mock-urpm genhdlist2 tree git rpm ruby)
-chroot ${ROOTFS} urpmi ${PACKAGES[*]} --auto --no-suggests --no-verify-rpm
+chroot ${ROOTFS} urpmi ${PACKAGES[*]} --auto --downloader wget --wget-options --auth-no-challenge --auto --no-suggests --no-verify-rpm --ignorearch --fastunsafe
 chroot ${ROOTFS} urpmi.update -a
 # chroot ${ROOTFS} systemctl enable network
 # chroot ${ROOTFS} service network start
