@@ -83,7 +83,7 @@ mkdir -p ${ROOTFS}/home/vagrant/.ssh
 echo $VAGRANT_KEY > ${ROOTFS}/home/vagrant/.ssh/authorized_keys
 chroot ${ROOTFS} chown -R vagrant: /home/vagrant/.ssh
 
-chroot ${ROOTFS} urpmi sudo --auto --downloader wget --wget-options --auth-no-challenge --auto --no-suggests --no-verify-rpm --ignorearch --fastunsafe
+chroot ${ROOTFS} urpmi --auto --downloader wget --wget-options --auth-no-challenge --no-suggests --no-verify-rpm --ignorearch --fastunsafe sudo
 chroot ${ROOTFS} usermod -a -G wheel vagrant
 
 # Enable passwordless sudo for users under the "sudo" group
@@ -136,6 +136,7 @@ fi
 # 7 - Free up some disk space
 
 rm -rf ${ROOTFS}/tmp/*
+rm -rf ${ROOTFS}/var/cache/urpmi/{rpms,partial}/*
 # chroot ${ROOTFS} urpmi clean metadata
 
 
