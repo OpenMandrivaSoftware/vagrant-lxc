@@ -57,6 +57,7 @@ if $(lxc-ls | grep -q "${RELEASE}-base"); then
   exit 1
 else
   export SUITE=$RELEASE
+  echo "Starting build lxc container"
   lxc-create -n ${RELEASE}-base -t openmandriva -- -R ${RELEASE} --arch ${ARCH}
 fi
 
@@ -101,15 +102,15 @@ sed -i 's/\# %wheel/\%wheel/' ${ROOTFS}/etc/sudoers
 
 # Extra packages: urpmi perl-URPM mock-urpm genhdlist2 tree git rpm ruby
 PACKAGES=(vim curl wget man bash-completion openssh-server openssh-clients tar urpmi perl-URPM mock-urpm genhdlist2 tree git rpm ruby)
-chroot ${ROOTFS} urpmi ${PACKAGES[*]} --auto --downloader wget --wget-options --auth-no-challenge --auto --no-suggests --no-verify-rpm --ignorearch --fastunsafe
+chroot ${ROOTFS} urpmi ${PACKAGES[*]} --auto --downloader wget --wget-options --auth-no-challenge --no-suggests --no-verify-rpm --ignorearch --fastunsafe
 chroot ${ROOTFS} urpmi.update -a
-# chroot ${ROOTFS} systemctl enable network
-# chroot ${ROOTFS} service network start
+chroot ${ROOTFS} systemctl enable systemd-networkd.service
+chroot ${ROOTFS} systemctl enable systemd-resolved.service
+chroot ${ROOTFS} systemctl enable systemd-timedated.service
+chroot ${ROOTFS} systemctl enable systemd-timesyncd.service
 chroot ${ROOTFS} systemctl enable sshd.service
-chroot ${ROOTFS} systemctl enable network.service
-# chroot ${ROOTFS} chkconfig sshd on
-# chroot ${ROOTFS} chkconfig network on
-# chroot ${ROOTFS} dhclient eth0
+chroot ${ROOTFS} systemctl enable sshd.service
+chroot ${ROOTFS} systemctl enable sshd.socket
 
 
 ##################################################################################
